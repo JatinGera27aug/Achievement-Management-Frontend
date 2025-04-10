@@ -25,11 +25,11 @@ import { cn } from "@/lib/utils";
 import { api } from "@/api";
 import { useNavigate } from "react-router-dom";
 
-const Logger = (isEnabled: boolean = true) => {
+  const Logger = (isEnabled: boolean = true) => {
   let enable = isEnabled;
 
   return {
-    log: (...args: any[]) => {
+    log: (...args: unknown[]) => {    // removed any here to remove eror
       if (enable) console.log(...args);
     },
     enable: () => {
@@ -507,6 +507,8 @@ const EventForm = () => {
                 Upload Certificates
               </Label>
               <FileUploadSection
+                key="certificates-upload-section"
+                id="certificate-upload" 
                 files={certificateFiles}
                 onFileChange={(newFiles: File[]) => {
                   const limitedFiles = newFiles.slice(
@@ -537,13 +539,15 @@ const EventForm = () => {
                 Upload Event Images
               </Label>
               <FileUploadSection
+                key="event-images-upload-section"
+                id="event-image-upload"
                 files={eventImageFiles}
                 onFileChange={(newFiles: File[]) => {
                   const limitedFiles = newFiles.slice(
                     0,
-                    5 - certificateFiles.length
+                    5 - eventImageFiles.length
                   );
-                  setCertificateFiles((prev) => [...prev, ...limitedFiles]);
+                  setEventImageFiles((prev) => [...prev, ...limitedFiles]);
                 }}
                 onFileRemove={(index: number) => {
                   const updatedFiles = [...eventImageFiles];
@@ -570,6 +574,7 @@ const EventForm = () => {
     accept = ".jpg,.jpeg,.png,.pdf",
     multiple = true,
     label = "Upload Files",
+    id = "file-upload",
   }: {
     files: File[];
     onFileChange: (newFiles: File[]) => void;
@@ -578,13 +583,14 @@ const EventForm = () => {
     multiple?: boolean;
     label?: string;
     maxFiles?: number;
+    id?: string;
   }) => {
     const { theme } = useTheme();
 
     return (
       <div className="space-y-4">
-        <label
-          htmlFor="file-upload"
+          <label
+            htmlFor={id}
           className={cn(
             "block w-full p-6 text-center cursor-pointer rounded-lg transition-colors group",
             theme === "dark"
@@ -592,9 +598,9 @@ const EventForm = () => {
               : "bg-gray-100 hover:bg-gray-200"
           )}
         >
-          <input
-            type="file"
-            id="file-upload"
+            <input
+              type="file"
+              id={id} // Use the passed id prop
             multiple={multiple}
             accept={accept}
             className="hidden"

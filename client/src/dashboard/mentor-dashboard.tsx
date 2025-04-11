@@ -160,7 +160,7 @@ function App() {
     <div className="flex min-h-screen bg-gray-50 dark:bg-gray-950">
       {/* Mobile Menu Button */}
       <button
-        className="lg:hidden fixed top-4 left-4 z-50 p-2.5 bg-white rounded-lg shadow-md hover:bg-gray-50 transition-colors"
+        className="lg:hidden fixed top-4 left-0 z-50 p-2.5 bg-white rounded-lg shadow-md hover:bg-gray-50 transition-colors"
         onClick={() => setIsMobileOpen(!isMobileOpen)}
       >
         {isMobileOpen ? (
@@ -193,7 +193,7 @@ function App() {
       {/* Sidebar */}
       <div
         className={`
-          fixed lg:static h-screen bg-white dark:bg-gray-900 shadow-lg z-40
+          fixed lg:static h-screen pt-8 bg-white dark:bg-gray-900 shadow-lg z-40
           transition-all duration-300 ease-in-out
           ${isSidebarOpen ? 'w-[300px]' : 'w-0 '}
           ${isMobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
@@ -217,11 +217,7 @@ function App() {
                   className="w-full pl-10 pr-4 py-2.5 bg-gray-50 dark:bg-gray-800 border-0 rounded-lg focus:ring-2 focus:ring-purple-200 text-sm"
                 />
               </>
-            ) : (
-              <button className="p-2.5 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 transition-colors">
-                <Search className="w-5 h-5 text-gray-400" />
-              </button>
-            )}
+            ) : (<div></div>)}
           </div>
 
           {/* Mentee List */}
@@ -248,7 +244,7 @@ function App() {
                     alt={mentee.name} 
                     className={`
                       rounded-full object-cover
-                      ${!isSidebarOpen ? 'w-8 h-8' : 'w-10 h-10 mr-3'}
+                      ${!isSidebarOpen ? "" : 'w-10 h-10 mr-3'}
                     `}
                   />
                   {isSidebarOpen && (
@@ -287,18 +283,7 @@ function App() {
                   Settings
                 </button>
               </>
-            ) : (
-              <div className="flex flex-col items-center">
-                <img 
-                  src="https://images.unsplash.com/photo-1573496799652-408c2ac9fe98?w=400&h=400&fit=crop" 
-                  alt="Mentor" 
-                  className="w-10 h-10 rounded-full object-cover mb-2"
-                />
-                <button className="p-2 hover:bg-white rounded-lg transition-colors">
-                  <Settings className="w-5 h-5 text-gray-700" />
-                </button>
-              </div>
-            )}
+            ) :(<div></div>)}
           </div>
         </div>
       </div>
